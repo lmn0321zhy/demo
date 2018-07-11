@@ -9,7 +9,7 @@ const VENDOR = [
 
 module.exports = {
     entry: {
-        app: './src/entry.js',
+        app: './src/index.js',
         //1.1
         vendor: VENDOR
     },
@@ -24,7 +24,8 @@ module.exports = {
         extensions: ['.js', '.jsx'],
         alias: {
             "components": path.resolve(__dirname, 'src/components'),
-            "api": path.resolve(__dirname, 'src/api')
+            "api": path.resolve(__dirname, 'src/api'),
+            "container": path.resolve(__dirname, 'src/container')
         }
     },
     module: {
@@ -161,7 +162,7 @@ module.exports = {
             title: 'React App',
             abc: '自定义输出',
             filename: 'index.html',
-            template: 'webpack.temp.ejs'
+            template: 'index.html'
         }),
     ]
 };
