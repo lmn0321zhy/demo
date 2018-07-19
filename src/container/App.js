@@ -7,6 +7,7 @@ import Login from 'container/login'
 import Dashboard from 'container/dashboard'
 import Tabs from 'components/tabs'
 import Demo from 'container/demo'
+import CommonEchart from 'components/echart'
 
 import styles from './App.less'
 
@@ -19,6 +20,7 @@ export default class APP extends React.Component {
 						<Route exact path="/" component={Tabs} />
 						<Route exact path="/dashboard" component={Dashboard} />
 						<Route exact path="/demo" component={Demo} />
+						<Route exact path="/echart" render={() => <CommonEchart type='pieOption' />} />
 					</Switch>
 				</div>
 			</Router>
