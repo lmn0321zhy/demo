@@ -1,16 +1,32 @@
-import axios from 'axios'
-import qs from 'qs'
+import axios from 'axios';
+import { message } from 'antd';
+
+const toType = (obj) => {
+    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+}
+const filterNull = (o) => {
+    for (let key in o) {
+        if (o[key] === null) {
+            delete o[key]
+        }
+        if (toType(o[key]) === 'string') {
+            o[key] = o[key].trim()
+        } else if (toType(o[key]) === 'object') {
+            o[key] = filterNull(o[key])
+        } else if (toType(o[key]) === 'array') {
+            o[key] = filterNull(o[key])
+        }
+    }
+    return o
+}
 
 axios.interceptors.request.use(config => {
-    console.log(config)
-    const mock = /^(mock\/)(.*)(.json)$/
+    // dui
+    const mock = /^(\/mock\/)(.*)(.json)$/
     const url = config.url;
     if (config.method === 'post' && mock.test(url)) {
         return Object.assign({}, config, {
-            method: 'get', headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
+            method: 'get'
         })
     } else {
         return config
@@ -26,8 +42,9 @@ axios.interceptors.response.use(response => {
     return Promise.resolve(error.response)
 })
 
-function errorState(response) {
-    console.log(response)
+const errorState = (data) => {
+    console.log(data)
+    message.error(data.msg)
     //隐藏loading
     // console.log(response)
     // // 如果http状态码正常，则直接返回数据
@@ -43,85 +60,79 @@ function errorState(response) {
 
 }
 
-function successState(res) {
-    //隐藏loading
-    //统一判断后端返回的错误码
-    // if (res.data.errCode == '000002') {
-    //     Vue.prototype.$msg.alert.show({
-    //         title: '提示',
-    //         content: res.data.errDesc || '网络异常',
-    //         onShow() {
-    //         },
-    //         onHide() {
-    //             console.log('确定')
-    //         }
-    //     })
-    // } else if (res.data.errCode != '000002' && res.data.errCode != '000000') {
-    //     Vue.prototype.$msg.alert.show({
-    //         title: '提示',
-    //         content: res.data.errDesc || '网络异常',
-    //         onShow() {
+const successState = (res) => {
+    message.error(res.msg)
+    // 隐藏loading
+    // 统一判断后端返回的错误码
+    if (res.data.errCode == '000002') {
+        // Vue.prototype.$msg.alert.show({
+        //     title: '提示',
+        //     content: res.data.errDesc || '网络异常',
+        //     onShow() {
+        //     },
+        //     onHide() {
+        //         console.log('确定')
+        //     }
+        // })
+    } else if (res.data.errCode != '000002' && res.data.errCode != '000000') {
+        // Vue.prototype.$msg.alert.show({
+        //     title: '提示',
+        //     content: res.data.errDesc || '网络异常',
+        //     onShow() {
 
-    //         },
-    //         onHide() {
-    //             console.log('确定')
-    //         }
-    //     })
-    // }
+        //     },
+        //     onHide() {
+        //         console.log('确定')
+        //     }
+        // })
+    }
 }
-const http = (opts, data) => {
 
-    let Public = { //公共参数
-        'srAppid': ""
+const apiAxios = (method, url, params) => {
+    if (params) {
+        params = filterNull(params)
     }
-
-    let httpDefaultOpts = { //http默认配置
-        method: opts.method,
-        // baseURL,
-        url: opts.url,
-        timeout: 10000,
-        params: Object.assign(Public, data),
-        data: qs.stringify(Object.assign(Public, data)),
-        headers: opts.method == 'get' ? {
-            'X-Requested-With': 'XMLHttpRequest',
-            "Accept": "application/json",
-            "Content-Type": "application/json; charset=UTF-8"
-        } : {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
+    const httpDefaultOpts = {
+        method: method,
+        url: url,
+        data: method === 'POST' || method === 'PUT' ? params : null,
+        params: method === 'GET' || method === 'DELETE' ? params : null,
+        // baseURL: root,
+        withCredentials: false
     }
-
-    if (opts.method == 'get') {
-        delete httpDefaultOpts.data
-    } else {
-        delete httpDefaultOpts.params
-    }
-
     let promise = new Promise(function (resolve, reject) {
         axios(httpDefaultOpts).then(
             (res) => {
-                successState(res)
-                resolve(res)
+                if (res.status === 200 && res.data.statusCode === '000000') {
+                    successState(res.data)
+                    resolve(res.data)
+                }else{
+                    errorState(res.data)
+                }
             }
         ).catch(
-            (response) => {
-                errorState(response)
-                reject(response)
+            (res) => {  
+                errorState(res)
+                reject(res)
             }
         )
 
     })
     return promise
 }
-const httpServer = {
-    get: (url, params, resolve, reject) => {
-        http({ method: 'get', url: url }, params).then((data) => resolve(data), (data) => reject(data))
-    },
 
-    post: (url, params, resolve, reject) => {
-        http({ method: 'post', url: url }, params).then((data) => resolve(data), (data) => reject(data))
+export default {
+    get: function (url, params, resolve, reject) {
+        return apiAxios('GET', url, params).then((data) => resolve(data), (data) => reject(data))
+    },
+    post: function (url, params, resolve, reject) {
+        return apiAxios('POST', url, params).then((data) => resolve(data), (data) => reject(data))
+    },
+    put: function (url, params, resolve, reject) {
+        return apiAxios('PUT', url, params).then((data) => resolve(data), (data) => reject(data))
+    },
+    delete: function (url, params, resolve, reject) {
+        return apiAxios('DELETE', url, params).then((data) => resolve(data), (data) => reject(data))
     }
 }
 
-export default httpServer

@@ -1,6 +1,6 @@
 import React from "react"
 import { Button } from 'antd';
-import Service from 'api/Api';
+import Service from 'api/httpServer';
 
 export default class AjaxDemo extends React.Component {
 
