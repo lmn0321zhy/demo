@@ -21,7 +21,7 @@ const filterNull = (o) => {
 }
 
 axios.interceptors.request.use(config => {
-    // dui
+    // 请求拦截，使用本地mock数据
     const mock = /^(\/mock\/)(.*)(.json)$/
     const url = config.url;
     if (config.method === 'post' && mock.test(url)) {

@@ -1,6 +1,32 @@
 import React from "react"
-import { Button } from 'antd';
+import { Cascader } from 'antd';
 import Service from 'api/httpServer';
+import SiderMenu from "components/sider-menu";
+const options = [{
+    value: 'zhejiang',
+    label: 'Zhejiang',
+    children: [{
+        value: 'hangzhou',
+        label: 'Hangzhou',
+        children: [{
+            value: 'xihu',
+            label: 'West Lake',
+            code: 752100,
+        }],
+    }],
+}, {
+    value: 'jiangsu',
+    label: 'Jiangsu',
+    children: [{
+        value: 'nanjing',
+        label: 'Nanjing',
+        children: [{
+            value: 'zhonghuamen',
+            label: 'Zhong Hua Men',
+            code: 453400,
+        }],
+    }],
+}];
 
 export default class AjaxDemo extends React.Component {
 
@@ -28,13 +54,26 @@ export default class AjaxDemo extends React.Component {
             })
         })
     }
+    displayRender = (labels, selectedOptions) => labels.map((label, i) => {
+        const option = selectedOptions[i];
+        if (i === labels.length - 1) {
+            return (
+                <span key={option.value}>
+                    {label} (<a onClick={e => handleAreaClick(e, label, option)}>{option.code}</a>)
+            </span>
+            );
+        }
+        return <span key={option.value}>{label} / </span>;
+    });
+    handleAreaClick(e, label, option) {
+        e.stopPropagation();
+        console.log('clicked', label, option);
+    }
+
     render() {
         return (
-            <div className="clock-wrap">
-                <Button type="primary" onClick={this.handleChick}>请求</Button>
-                <p>
-                    {this.state.data}
-                </p>
+            <div style={{ height: '100%' }}>
+                <SiderMenu style={{ height: '100%' }} collapsed={false} />
             </div>
         )
     }
