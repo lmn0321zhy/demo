@@ -17,8 +17,8 @@ export default class APP extends React.Component {
 				<div className={styles.app}>
 					<Switch>
 						<Route exact path="/" component={Dashboard} />
-						<Route exact path="/dashboard" component={Dashboard} />
-						<Route exact path="/demo" component={Demo} />
+						<Route exact path="/app/dashboard/index" component={Dashboard} />
+						<Route exact path="/app/ui/buttons" component={Dashboard} />
 						<Route exact path="/echart" render={() => <CommonEchart type='pieOption' />} />
 					</Switch>
 				</div>

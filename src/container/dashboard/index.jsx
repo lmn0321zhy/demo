@@ -1,33 +1,7 @@
 import React from "react"
-import { Cascader } from 'antd';
-import Service from 'api/httpServer';
 import SiderMenu from "components/sider-menu";
-const options = [{
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-            code: 752100,
-        }],
-    }],
-}, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-            code: 453400,
-        }],
-    }],
-}];
 
+import styles from './index.less';
 export default class AjaxDemo extends React.Component {
 
     constructor(props) {
@@ -36,7 +10,6 @@ export default class AjaxDemo extends React.Component {
         this.state = {
             data: ''
         }
-
     }
     // 2 渲染到DOM之后执行（挂载）
     componentDidMount() {
@@ -72,8 +45,8 @@ export default class AjaxDemo extends React.Component {
 
     render() {
         return (
-            <div style={{ height: '100%' }}>
-                <SiderMenu style={{ height: '100%' }} collapsed={false} />
+            <div className={styles.container}>
+                <SiderMenu collapsed={false} />
             </div>
         )
     }

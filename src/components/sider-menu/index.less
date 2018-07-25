@@ -4,3 +4,36 @@
     border-radius: 6px;
     margin: 16px;
   }
+  .subMenuVertical{
+    overflow-y: auto;
+    flex: 0 0 200px;
+    max-width: 200px;
+    min-width: 200px;
+    width: 200px;
+    height: 100%;
+  }
+  .subMenuInline{
+    overflow-y: auto;
+    flex: 0 0 80px;
+    max-width: 80px;
+    min-width: 80px;
+    width: 80px;
+    height: 100%;
+  }
+  .subMenuVertical::-webkit-scrollbar{
+      width: 8px;
+      height: 8px;
+  }
+  .subMenuVertical::-webkit-scrollbar-thumb {
+      background-color: #777;
+    }
+    .subMenuInline::-webkit-scrollbar{
+      width: 8px;
+      height: 8px;
+  }
+  .subMenuInline::-webkit-scrollbar-thumb {
+      background-color: #777;
+    }
+  .subMenuIcon{
+    width: 100%;
+  }
