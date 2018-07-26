@@ -1,7 +1,4 @@
-/**
- * Created by hao.cheng on 2017/4/13.
- */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Layout, Icon } from 'antd';
 import { withRouter } from 'react-router-dom';
 import routes from './config';
@@ -10,7 +7,7 @@ import styles from './index.less';
 
 const { Sider } = Layout;
 
-class SiderCustom extends Component {
+class SiderCustom extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import styles from './index.less'
 import classNames from 'classnames'
 
-export default class Tabs extends React.Component {
+export default class Tabs extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
