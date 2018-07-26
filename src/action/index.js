@@ -2,24 +2,34 @@
  * Created by 叶子 on 2017/7/30.
  */
 import * as type from './type';
-import * as http from '../axios/index';
+import httpServer from 'api/httpServer';
 
-const requestData = category => ({
-    type: type.REQUEST_DATA,
-    category
-});
-export const receiveData = (data, category) => ({
-    type: type.RECEIVE_DATA,
-    data,
-    category
-});
-/**
- * 请求数据调用方法
- * @param funcName      请求接口的函数名
- * @param params        请求接口的参数
- */
-export const fetchData = ({funcName, params, stateName}) => dispatch => {
-    !stateName && (stateName = funcName);
-    dispatch(requestData(stateName));
-    return http[funcName](params).then(res => dispatch(receiveData(res, stateName)));
-};
+
+export function loginSuccess(data) {
+    console.log('loginSuccess', data)
+    return {
+        type: type.LOGIN_SUCCESS,
+        payload: data
+    }
+}
+export function loginFailure(error) {
+    console.log('loginFailure', error)
+    return {
+        type: type.LOGIN_FAILURE,
+        payload: error
+    }
+}
+export function loginLoading(loading) {
+    console.log('loginLoading', loading)
+    return {
+        type: type.LOGIN_LOADING,
+        payload: loading
+    }
+}
+export const login = () => dispatch => {
+    dispatch(loginLoading(true));
+    return httpServer.get('/mock/login.json',
+        {},
+        (response) => { dispatch(loginLoading(false)); dispatch(loginSuccess(response)) },
+        (error) => { dispatch(loginLoading(false)); dispatch(loginFailure(error)) })
+}

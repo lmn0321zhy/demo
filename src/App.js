@@ -19,7 +19,7 @@ export default class APP extends React.Component {
 						<Route exact path="/" component={Dashboard} />
 						<Route exact path="/dashboard" component={Dashboard} />
 						<Route exact path="/login" component={Login} />
-						<Route exact path="/notFound" component={NotFound} />
+						<Route exact path="/notFound" component={Dashboard} />
 						<Route exact path="/demo" component={Demo} />
 						<Route component={NotFound} />
 					</Switch>

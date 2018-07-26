@@ -27,7 +27,8 @@ module.exports = {
             "api": path.resolve(__dirname, 'src/api'),
             "container": path.resolve(__dirname, 'src/container'),
             "assets": path.resolve(__dirname, 'src/assets'),
-            "styles": path.resolve(__dirname, 'src/styles')
+            "styles": path.resolve(__dirname, 'src/styles'),
+            "action": path.resolve(__dirname, 'src/action')
         }
     },
     module: {
