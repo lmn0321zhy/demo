@@ -51,7 +51,7 @@ class SiderCustom extends Component {
             firstHide: false,
         })
     };
-    clickCollapse = (collapsed) => {
+    toggle = (collapsed) => {
         const state1 = this.setMenuOpen(this.props);
         const state2 = this.onCollapse(collapsed);
         const data = {
@@ -67,10 +67,7 @@ class SiderCustom extends Component {
     }
     render() {
         const { collapsed = false } = this.state;
-        let IconDiv = <span onClick={() => this.clickCollapse(false)}><Icon style={{ fontSize: '20px', color: 'white', position: 'fixed', bottom: '50px', marginLeft: '40px' }} type="right-circle-o" /></span>
-        if (!collapsed) {
-            IconDiv = <span onClick={() => this.clickCollapse(true)} > <Icon style={{ fontSize: '20px', color: 'white', position: 'fixed', bottom: '50px', marginLeft: '160px' }} type="left-circle-o" /></ span>
-        }
+        const marginLeft = collapsed ? '40px' : '160px'
         return (
             <Sider
                 trigger={null}
@@ -88,7 +85,7 @@ class SiderCustom extends Component {
                     openKeys={this.state.firstHide ? null : [this.state.openKey]}
                     onOpenChange={this.openMenu}
                 />
-                {IconDiv}
+                <span onClick={() => this.toggle(!collapsed)} > <Icon style={{ fontSize: '20px', color: 'white', position: 'fixed', bottom: '50px', marginLeft: marginLeft }} type={collapsed ? "right-circle-o" : "left-circle-o"} /></ span>
             </Sider>
         )
     }

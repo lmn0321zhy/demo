@@ -8,9 +8,9 @@ import Dashboard from 'container/dashboard'
 import Demo from 'container/demo'
 import CommonEchart from 'components/echart'
 
-import styles from './App.less'
+import styles from './Page.less'
 
-export default class APP extends React.Component {
+export default class Page extends React.Component {
 	render() {
 		return (
 			<Router>
