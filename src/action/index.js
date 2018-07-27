@@ -1,6 +1,3 @@
-/**
- * Created by 叶子 on 2017/7/30.
- */
 import * as type from './type';
 import httpServer from 'api/httpServer';
 
@@ -20,16 +17,28 @@ export function loginFailure(error) {
     }
 }
 export function loginLoading(loading) {
-    console.log('loginLoading', loading)
     return {
         type: type.LOGIN_LOADING,
         payload: loading
     }
 }
-export const login = () => dispatch => {
-    dispatch(loginLoading(true));
-    return httpServer.get('/mock/login.json',
-        {},
-        (response) => { dispatch(loginLoading(false)); dispatch(loginSuccess(response)) },
-        (error) => { dispatch(loginLoading(false)); dispatch(loginFailure(error)) })
+export function logout(data) {
+    return {
+        type: type.LOGOUT,
+        payload: null
+    }
+}
+export const login = (type, params) => dispatch => {
+    if (type === 'LOGIN') {
+        dispatch(loginLoading(true));
+        return httpServer.get('/mock/login.json',
+            params || {},
+            (response) => { dispatch(loginLoading(false)); dispatch(loginSuccess(response)) },
+            (error) => { dispatch(loginLoading(false)); dispatch(loginFailure(error)) })
+    } else if(type === 'LOGOUT'){
+        return httpServer.get('/mock/logout.json',
+            params || {},
+            (response) => { dispatch(logout(response)) },
+            (error) => { console.log(error) })
+    }
 }

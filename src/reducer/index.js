@@ -1,6 +1,3 @@
-/**
- * Created by 叶子 on 2017/7/30.
- */
 import { combineReducers } from 'redux';
 import * as type from '../action/type';
 
@@ -22,6 +19,11 @@ const login = (state = {}, action) => {
             return {
                 ...state,
                 loading: action.payload
+            };
+        case type.LOGOUT:
+            return {
+                ...state,
+                user: action.payload
             };
         default:
             return { ...state };
