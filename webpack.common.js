@@ -9,7 +9,7 @@ const VENDOR = [
 
 module.exports = {
     entry: {
-        app: './src/index.js',
+        app: './src/index.test.js',
         //1.1
         vendor: VENDOR
     },

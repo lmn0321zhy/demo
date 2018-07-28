@@ -60,7 +60,7 @@ class GlobalHeader extends PureComponent {
 }
 // 传入所有state，返回指定的state数据，放入到当前组件props中
 const mapStateToProps = (state, ownProps) => {
-    console.log(state)
+    console.log('state',state)
     return {
         loading: state.login.loading,
         user: state.login.user,

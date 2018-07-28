@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import * as type from '../action/type';
+import storage from 'redux-persist/es/storage'
+import {persistReducer} from 'redux-persist'
 
 const login = (state = {}, action) => {
     switch (action.type) {
@@ -29,7 +31,11 @@ const login = (state = {}, action) => {
             return { ...state };
     }
 };
-
+const userconfig = {
+    key: 'user',
+    storage,
+    debug: false
+}
 export default combineReducers({
-    login
+    login: persistReducer(userconfig, login),
 });
