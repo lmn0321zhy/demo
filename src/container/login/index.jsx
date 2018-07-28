@@ -3,7 +3,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { DocumentTitle } from 'react-document-title';
 import styles from './index.less';
-import { login } from 'action';
+import { login } from 'action/login';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -15,57 +15,58 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         if (this.props.events && typeof this.props.events.login === 'function') {
-          this.props.events.login('LOGIN', values)
+          this.props.events.login(values)
         }
       }
     });
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const user = this.props.user;
-    const layout = <div className={styles.loginDiv}>
-      <div className={styles.login}>
-        <div className={styles.header}>
-          <h3>欢迎</h3>
+    const userInfo = this.props.userInfo;
+    const layout = <div className={styles.login}>
+      <div className={styles.loginForm} >
+        <div className={styles.loginLogo}>
+          <span>React Admin</span>
         </div>
-        <div className={styles.body}>
-          <Form onSubmit={this.handleSubmit} className={styles.loginForm}>
-            <FormItem>
-              {getFieldDecorator('userName', {
-                rules: [{ required: true, message: 'Please input your username!' }],
-              })(
-                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-              )}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please input your Password!' }],
-              })(
-                <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-              )}
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator('remember', {
-                valuePropName: 'checked',
-                initialValue: true,
-              })(
-                <Checkbox>记住密码</Checkbox>
-              )}
-              <Button type="primary" htmlType="submit" className={styles.loginFormButton}>
-                登录
+        <Form onSubmit={this.handleSubmit} style={{ maxWidth: '300px' }}>
+          <FormItem>
+            {getFieldDecorator('userName', {
+              rules: [{ required: true, message: '请输入用户名!' }],
+            })(
+              <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="管理员输入admin, 游客输入guest" />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('password', {
+              rules: [{ required: true, message: '请输入密码!' }],
+            })(
+              <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="管理员输入admin, 游客输入guest" />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator('remember', {
+              valuePropName: 'checked',
+              initialValue: true,
+            })(
+              <Checkbox>记住我</Checkbox>
+            )}
+            <a className="login-form-forgot" href="" style={{ float: 'right' }}>忘记密码</a>
+            <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+              登录
                 </Button>
-            </FormItem>
-          </Form>
-        </div>
+            <p style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <a href="">或 现在就去注册!</a>
+              <a onClick={this.gitHub} ><Icon type="github" />(第三方登录)</a>
+            </p>
+          </FormItem>
+        </Form>
       </div>
     </div>
     return (
-      <div>
-        { user?<Redirect to='/dashboard' /> : layout }
+      // <DocumentTitle title='登录'>
+      <div style={{ height: '100%' }}>
+        {userInfo ? <Redirect to='/dashboard' /> : layout}
       </div>
-      // <DocumentTitle>
-      // {layout}
-
       // </DocumentTitle>
     );
   }
@@ -75,9 +76,8 @@ const WrappedNormalLoginForm = Form.create()(NormalLoginForm)
 const mapStateToProps = (state, ownProps) => {
   console.log(state)
   return {
-    loading: state.login.loading,
-    user: state.login.user,
-    error: state.login.error
+    userInfo: state.loginInfo.userInfo,
+    loginerror: state.loginInfo.loginerror
   }
 };
 //传入dispatch，返回使用bindActionCreators()绑定的action方法

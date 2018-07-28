@@ -3,39 +3,36 @@ import * as type from '../action/type';
 import storage from 'redux-persist/es/storage'
 import {persistReducer} from 'redux-persist'
 
-const login = (state = {}, action) => {
+const loginInfo = (state = {}, action) => {
     switch (action.type) {
         case type.LOGIN_SUCCESS:
             return {
                 ...state,
-                user: action.payload,
-                error: null
+                userInfo: action.payload,
+                loginerror: null
             }
         case type.LOGIN_FAILURE:
             return {
                 ...state,
-                error: action.payload,
-                user: null
+                loginerror: action.payload,
+                userInfo: null
             };
-        case type.LOGIN_LOADING:
+        case type.LOGOUT_SUCCSSS:
             return {
                 ...state,
-                loading: action.payload
-            };
-        case type.LOGOUT:
-            return {
-                ...state,
-                user: action.payload
+                userInfo: null,
+                loginerror:null
             };
         default:
             return { ...state };
     }
 };
 const userconfig = {
-    key: 'user',
+    key: 'loginInfo',
     storage,
-    debug: false
+    debug: false,
+    blacklist: ['status']
 }
 export default combineReducers({
-    login: persistReducer(userconfig, login),
+    loginInfo: persistReducer(userconfig, loginInfo),
 });

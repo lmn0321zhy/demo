@@ -162,8 +162,6 @@ module.exports = {
         //     allChunks: true
         // }),
         new HtmlWebpackPlugin({
-            title: 'React App',
-            abc: '自定义输出',
             filename: 'index.html',
             template: 'index.html'
         }),

@@ -16,7 +16,6 @@ const logger = store => next => action => {
     if (typeof action === 'function') console.log('dispatching a function');
     else console.log('loggerMiddleware dispatch', action);
     let result = next(action);
-    // console.log('dispatch(result)', dispatch(result))
     console.log('loggerMiddleware next state', store.getState());
     return result;
 }

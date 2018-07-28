@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Menu, Icon, Layout, Badge, Button } from 'antd';
 import { connect } from 'react-redux';
-import { login } from 'action'
+import { logout } from 'action/login'
 import { bindActionCreators } from 'redux';
 import styles from './index.less';
 const { Header } = Layout;
@@ -24,8 +24,15 @@ class GlobalHeader extends PureComponent {
         //     this.props.AA.login('LOGIN');
         // }
     }
+    logOut = () => {
+        const { events } = this.props;
+        console.log(events)
+        if (events) {
+            events.logout();
+        }
+    }
     render() {
-        console.log('this.props', this.props)
+        const { userInfo } = this.props;
         return (
             <Header className={styles.globalHeader} >
                 <span style={{ paddingLeft: '15px', color: '#ff0000', fontSize: '25px' }}>管理系统</span>
@@ -40,7 +47,7 @@ class GlobalHeader extends PureComponent {
                                 <Icon type="notification" />
                             </Badge>
                         </Menu.Item>
-                        <SubMenu title={<span>刘梦南<i className="on bottom b-white" /></span>}>
+                        <SubMenu title={<span>{userInfo.userName}<i className="on bottom b-white" /></span>}>
                             <MenuItemGroup title="用户中心">
                                 <Menu.Item key="setting:1">你好 - 刘梦南</Menu.Item>
                                 <Menu.Item key="setting:2">个人信息</Menu.Item>
@@ -52,19 +59,21 @@ class GlobalHeader extends PureComponent {
                             </MenuItemGroup>
                         </SubMenu>
                     </Menu>
-                    <Button className={styles.globalHeaderLogout} type="primary" icon="logout" size='large' />
+                    <Button className={styles.globalHeaderLogout} onClick={this.logOut} type="primary" icon="logout" size='large' />
                 </div>
             </Header>
         )
     }
 }
 // 传入所有state，返回指定的state数据，放入到当前组件props中
-const mapStateToProps = (state, ownProps) => {
-    console.log('state',state)
+const mapStateToProps = (state) => {
     return {
-        loading: state.login.loading,
-        user: state.login.user,
-        error: state.login.error
+        userInfo: state.loginInfo.userInfo,
+        loginerror: state.loginInfo.loginerror
     }
 };
-export default connect(mapStateToProps)(GlobalHeader);
+//传入dispatch，返回使用bindActionCreators()绑定的action方法
+const mapDispatchToProps = (dispatch) => ({
+    events: bindActionCreators(Object.assign({}, { logout }), dispatch)
+})
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalHeader);

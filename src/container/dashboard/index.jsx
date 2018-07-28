@@ -1,14 +1,15 @@
 import React from "react"
 import { Layout } from 'antd';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import SiderMenu from "components/sider-menu";
 import GlobalHeader from "components/global-header";
 import NotFound from 'container/404'
+import { connect } from 'react-redux';
 import styles from './index.less';
 
 const { Content } = Layout;
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -18,20 +19,38 @@ export default class Dashboard extends React.Component {
 
     }
     render() {
-        return (
-            <div className={styles.container}>
-                <Layout style={{ height: '100%' }}>
-                    <SiderMenu collapsed={false} />
-                    <Layout>
-                        <GlobalHeader />
-                        <Content>
-                            <Switch>
-                                <Route exact path="/notFound" component={NotFound} />
-                            </Switch>
-                        </Content>
-                    </Layout>
+        const userInfo = this.props.userInfo;
+        const layout = <div className={styles.container}>
+            <Layout style={{ height: '100%' }}>
+                <SiderMenu collapsed={false} />
+                <Layout>
+                    <GlobalHeader />
+                    <Content>
+                        <Switch>
+                            <Route exact path="/notFound" component={NotFound} />
+                        </Switch>
+                    </Content>
                 </Layout>
+            </Layout>
+        </div>
+        return (
+            <div style={{ height: '100%' }}>
+                {!userInfo ? <Redirect to='/login' /> : layout}
             </div>
         )
     }
 }
+
+// 传入所有state，返回指定的state数据，放入到当前组件props中
+const mapStateToProps = (state) => {
+    return state.loginInfo ?
+        {
+            userInfo: state.loginInfo.userInfo,
+            loginerror: state.loginInfo.loginerror
+        } : {
+            userInfo: null,
+            loginerror: null
+        }
+};
+
+export default connect(mapStateToProps)(Dashboard);
