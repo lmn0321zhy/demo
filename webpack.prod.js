@@ -7,18 +7,25 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
-    output:{
+    output: {
         // 打包后html内引入文件是相对路径还是绝对路径
         publicPath: "./",
     },
     //可以扩展
-    module:{
-        rules:[
-
+    module: {
+        rules: [
+          
         ]
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
+        new ExtractTextPlugin({
+            //加上/css就会输出到css文件夹下面
+            filename: 'css/app_[hash].css',
+            // filename:'app_[chunkhash].css',
+            disable: false,
+            allChunks: true
+        }),
         // 1、压缩CSS
         new OptimizeCSSPlugin({
             cssProcessorOptions: {

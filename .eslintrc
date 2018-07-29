@@ -24,6 +24,7 @@
     "react/self-closing-comp": 1,   
     "react/sort-comp": 1,           
     "react/jsx-pascal-case": 1 ,
+    "import/no-unresolved": [0, {"commonjs": true, "amd": true}],
     "import/named": 1,
     "import/namespace": 1,
     "import/default": 1,
