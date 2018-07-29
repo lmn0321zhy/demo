@@ -43,7 +43,7 @@ export default class Tabs extends PureComponent {
                     {tabsContent}
                 </div>
                 <div className={dull_tabs_content_classname}>
-
+                    111
                 </div>
             </div>
         )

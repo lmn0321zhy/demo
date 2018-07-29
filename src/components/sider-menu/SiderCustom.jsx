@@ -18,6 +18,10 @@ class SiderCustom extends PureComponent {
             firstHide: true,        // 点击收缩菜单，第一次隐藏展开子菜单，openMenu时恢复
         };
     }
+    componentDidMount() {
+        const state = this.setMenuOpen(this.props);
+        this.setState(state);
+    }
     setMenuOpen = props => {
         const { pathname } = props.location;
         return {
@@ -31,10 +35,6 @@ class SiderCustom extends PureComponent {
             mode: collapsed ? 'vertical' : 'inline',
         };
     };
-    componentDidMount() {
-        const state = this.setMenuOpen(this.props);
-        this.setState(state);
-    }
     menuClick = e => {
         this.setState({
             selectedKey: e.key
@@ -68,7 +68,7 @@ class SiderCustom extends PureComponent {
         return (
             <Sider
                 trigger={null}
-                breakpoint="lg"
+                breakpoint='lg'
                 collapsed={collapsed}
                 className={collapsed ? styles.subMenuVertical : styles.subMenuInline}
             >
@@ -76,13 +76,13 @@ class SiderCustom extends PureComponent {
                 <SiderMenu
                     menus={routes.menus}
                     onClick={this.menuClick}
-                    theme="dark"
-                    mode="inline"
+                    theme='dark'
+                    mode='inline'
                     selectedKeys={[this.state.selectedKey]}
                     openKeys={this.state.firstHide ? null : [this.state.openKey]}
                     onOpenChange={this.openMenu}
                 />
-                <span onClick={() => this.toggle(!collapsed)} > <Icon style={{ fontSize: '20px', color: 'white', position: 'fixed', bottom: '50px', marginLeft: marginLeft }} type={collapsed ? "right-circle-o" : "left-circle-o"} /></ span>
+                <span onClick={() => this.toggle(!collapsed)} > <Icon style={{ fontSize: '20px', color: 'white', position: 'fixed', bottom: '50px', marginLeft: marginLeft }} type={collapsed ? 'right-circle-o' : 'left-circle-o'} /></ span>
             </Sider>
         )
     }

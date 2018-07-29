@@ -1,2 +1,2 @@
-import SiderMenu from "./SiderCustom"
+import SiderMenu from './SiderCustom'
 export default SiderMenu;

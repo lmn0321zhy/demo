@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react'
 import { Layout } from 'antd';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import SiderMenu from "components/sider-menu";
-import GlobalHeader from "components/global-header";
+import SiderMenu from 'components/sider-menu';
+import GlobalHeader from 'components/global-header';
 import NotFound from 'container/404'
 import { connect } from 'react-redux';
 import Admin from 'route/admin'

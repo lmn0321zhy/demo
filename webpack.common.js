@@ -83,7 +83,7 @@ module.exports = {
                 // fallback: "style-loader",
                 use: [
                     { loader: "style-loader" },
-                    { loader: "css-loader", options: { modules: true }},
+                    { loader: "css-loader", options: { modules: true } },
                     // {
                     // loader: 'postcss-loader',
                     // options: {
@@ -95,7 +95,7 @@ module.exports = {
                     // },
                     {
                         loader: "less-loader"
-                      
+
                     }
                 ]
                 // })
@@ -134,9 +134,10 @@ module.exports = {
             {
                 test: /(\.jsx|\.js)$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+                use: [
+                    { loader: "babel-loader" },
+                    { loader: "eslint-loader" }
+                ]
             },
             //4 处理字体
             {

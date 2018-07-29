@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 function CreatePrivateRoute(WrappedComponent, hocProps) {
     if (!!!WrappedComponent) {
-        throw new Error("缺少组件参数");
+        throw new Error('缺少组件参数');
         return false;
     }
     //withRouter 也是一个高阶组件 传递 history
@@ -18,12 +18,12 @@ function CreatePrivateRoute(WrappedComponent, hocProps) {
             }
 
             componentWillMount() {
-                let isAuthenticated = storage.getItem("token") ? true : false;
+                let isAuthenticated = storage.getItem('token') ? true : false;
                 this.setState({ isAuthenticated: isAuthenticated })
                 if (!isAuthenticated) {
                     const { history } = this.props;
                     setTimeout(() => {
-                        history.replace("/login");
+                        history.replace('/login');
                     }, 1000)
                 }
             }
@@ -31,7 +31,7 @@ function CreatePrivateRoute(WrappedComponent, hocProps) {
             render() {
                 return this.state.isAuthenticated ? (
                     <WrappedComponent {...hocProps} />
-                ) : ("请重新登录");
+                ) : ('请重新登录');
             }
         }
     )

@@ -16,11 +16,11 @@ export default class APP extends React.Component {
 			<Router>
 				<div className={styles.app}>
 					<Switch>
-						<Route exact path="/" component={Main} />
-						<Route exact path="/dashboard" component={Main} />
-						<Route exact path="/login" component={Login} />
-						<Route exact path="/notFound" component={Main} />
-						<Route exact path="/demo" component={Demo} />
+						<Route exact path='/' component={Main} />
+						<Route exact path='/dashboard' component={Main} />
+						<Route exact path='/login' component={Login} />
+						<Route exact path='/notFound' component={Main} />
+						<Route exact path='/demo' component={Demo} />
 						<Route component={NotFound} />
 					</Switch>
 				</div>

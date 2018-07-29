@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { DocumentTitle } from 'react-document-title';
@@ -33,14 +33,14 @@ class NormalLoginForm extends React.Component {
             {getFieldDecorator('userName', {
               rules: [{ required: true, message: '请输入用户名!' }],
             })(
-              <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="管理员输入admin, 游客输入guest" />
+              <Input prefix={<Icon type='user' style={{ fontSize: 13 }} />} placeholder='管理员输入admin, 游客输入guest' />
             )}
           </FormItem>
           <FormItem>
             {getFieldDecorator('password', {
               rules: [{ required: true, message: '请输入密码!' }],
             })(
-              <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="管理员输入admin, 游客输入guest" />
+              <Input prefix={<Icon type='lock' style={{ fontSize: 13 }} />} type='password' placeholder='管理员输入admin, 游客输入guest' />
             )}
           </FormItem>
           <FormItem>
@@ -50,13 +50,13 @@ class NormalLoginForm extends React.Component {
             })(
               <Checkbox>记住我</Checkbox>
             )}
-            <a className="login-form-forgot" href="" style={{ float: 'right' }}>忘记密码</a>
-            <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+            <a className='login-form-forgot' href='' style={{ float: 'right' }}>忘记密码</a>
+            <Button type='primary' htmlType='submit' className='login-form-button' style={{ width: '100%' }}>
               登录
                 </Button>
             <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <a href="">或 现在就去注册!</a>
-              <a onClick={this.gitHub} ><Icon type="github" />(第三方登录)</a>
+              <a href=''>或 现在就去注册!</a>
+              <a onClick={this.gitHub} ><Icon type='github' />(第三方登录)</a>
             </p>
           </FormItem>
         </Form>

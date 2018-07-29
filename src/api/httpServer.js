@@ -64,7 +64,7 @@ const successState = (res) => {
     // message.error(res.msg)
     // 隐藏loading
     // 统一判断后端返回的错误码
-    if (res.data.statusCode == '000002') {
+    if (res.data.statusCode === '000002') {
         // Vue.prototype.$msg.alert.show({
         //     title: '提示',
         //     content: res.data.errDesc || '网络异常',
@@ -74,7 +74,7 @@ const successState = (res) => {
         //         console.log('确定')
         //     }
         // })
-    } else if (res.data.statusCode != '000002' && res.data.statusCode != '000000') {
+    } else if (res.data.statusCode !== '000002' && res.data.statusCode !== '000000') {
         // Vue.prototype.$msg.alert.show({
         //     title: '提示',
         //     content: res.data.errDesc || '网络异常',
@@ -136,4 +136,3 @@ export default {
         return apiAxios('DELETE', url, params).then((data) => resolve(data), (data) => reject(data))
     }
 }
-
