@@ -91,13 +91,13 @@ module.exports = {
     },
     plugins: [
         //5、提取css到单独的文件夹
-        new ExtractTextPlugin({
-            //加上/css就会输出到css文件夹下面
-            filename: 'css/app_[hash].css',
-            // filename:'app_[chunkhash].css',
-            disable: false,
-            allChunks: true
-        }),
+        // new ExtractTextPlugin({
+        //     //加上/css就会输出到css文件夹下面
+        //     filename: 'css/app_[hash].css',
+        //     // filename:'app_[chunkhash].css',
+        //     disable: false,
+        //     allChunks: true
+        // }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html'
