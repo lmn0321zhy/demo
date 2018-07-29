@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import storage from 'utils/storage.js';
+// import storage from 'utils/storage.js';
 // 使用
 // const  PrivateRoute =  HocPrivateRoute(Route);
 

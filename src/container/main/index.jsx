@@ -5,11 +5,12 @@ import SiderMenu from "components/sider-menu";
 import GlobalHeader from "components/global-header";
 import NotFound from 'container/404'
 import { connect } from 'react-redux';
+import Admin from 'route/admin'
 import styles from './index.less';
 
 const { Content } = Layout;
 
-class Dashboard extends React.Component {
+class Main extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -26,9 +27,7 @@ class Dashboard extends React.Component {
                 <Layout>
                     <GlobalHeader />
                     <Content>
-                        <Switch>
-                            <Route exact path="/notFound" component={NotFound} />
-                        </Switch>
+                        <Admin />
                     </Content>
                 </Layout>
             </Layout>
@@ -53,4 +52,4 @@ const mapStateToProps = (state) => {
         }
 };
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(Main);

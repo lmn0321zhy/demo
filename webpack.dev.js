@@ -1,5 +1,6 @@
- const merge = require('webpack-merge');
- const common = require('./webpack.common.js');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
     devtool: 'inline-source-map',
@@ -15,13 +16,20 @@ module.exports = merge(common, {
         // host: "local-test.gamelanglive.com",
         //3、 是否需要跨域去请求接口本地测试
         proxy: {
-            "/api":{
-                target:"xxx.xx.com",
-                changeOrigin:true,
-                pathRewrite:{
-                    "^/api":""
+            "/api": {
+                target: "xxx.xx.com",
+                changeOrigin: true,
+                pathRewrite: {
+                    "^/api": ""
                 }
             }
         }
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('develop')
+            }
+        })
+    ]
 });

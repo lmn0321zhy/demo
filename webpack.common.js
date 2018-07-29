@@ -28,7 +28,8 @@ module.exports = {
             "container": path.resolve(__dirname, 'src/container'),
             "assets": path.resolve(__dirname, 'src/assets'),
             "styles": path.resolve(__dirname, 'src/styles'),
-            "action": path.resolve(__dirname, 'src/action')
+            "action": path.resolve(__dirname, 'src/action'),
+            "route": path.resolve(__dirname, 'src/route')
         }
     },
     module: {
