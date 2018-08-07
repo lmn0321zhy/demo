@@ -17,7 +17,7 @@ module.exports = merge(common, {
         //3、 是否需要跨域去请求接口本地测试
         proxy: {
             "/api": {
-                target: "xxx.xx.com",
+                target: "http://localhost:8088",
                 changeOrigin: true,
                 pathRewrite: {
                     "^/api": ""
