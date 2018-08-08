@@ -11,18 +11,18 @@ export default class Dashboard extends React.Component {
         super(props);
         this.state = {
             defaultFileList: [],
+            fileList: [],
+            uploading: false,
 
         }
     }
-    download = () => {
-        httpServer.get('/api/download')
-    }
+
     onChange = (info) => {
         const status = info.file.status;
         if (status === 'uploading') {
             console.log(info.file, info.fileList);
         } else {
-            console.log('111111111', info.file.response.data);
+            // console.log('111111111', info.file.response.data);
         }
         if (status === 'done') {
             message.success(`${info.file.name} file uploaded successfully.`);
@@ -33,14 +33,31 @@ export default class Dashboard extends React.Component {
     render() {
         const props = {
             name: 'file',
-            listType:'picture',
+            listType: 'picture',
             multiple: true,
             action: '/api/upload',
             defaultFileList: this.state.defaultFileList,
-            onChange: this.onChange
+            onChange: this.onChange,
+            onRemove: (file) => {
+                this.setState(({ fileList }) => {
+                    const index = fileList.indexOf(file);
+                    const newFileList = fileList.slice();
+                    newFileList.splice(index, 1);
+                    return {
+                        fileList: newFileList,
+                    };
+                });
+            },
+            beforeUpload: (file) => {
+                this.setState(({ fileList }) => ({
+                    fileList: [...fileList, file],
+                }));
+                return true;
+            },
+            fileList: this.state.fileList,
         };
         return (
-            
+
             <div>
                 <Dragger {...props}>
                     <p className="ant-upload-drag-icon">

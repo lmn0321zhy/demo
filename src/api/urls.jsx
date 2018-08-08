@@ -3,14 +3,19 @@ import apiUrl from 'api/apiUrl';
 const hostApi = {
     production: {
         host: '',
-        prefix: '',
+        prefix: '/api',
         suffix: ''
     },
     develop: {
         host: '',
-        prefix: '/mock',
-        suffix: '.json'
-    }
+        prefix: '/api',
+        suffix: ''
+    },
+    // develop: {
+    //     host: '',
+    //     prefix: '/mock',
+    //     suffix: '.json'
+    // }
 }
 
 const urls = {}
