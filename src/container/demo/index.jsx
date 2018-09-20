@@ -1,41 +1,55 @@
 import React from 'react'
-import { Tabs, Select } from 'antd';
-
-const TabPane = Tabs.TabPane;
+import { Select } from 'antd';
+import { changeTheme } from 'action/theme';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 const Option = Select.Option;
 
-
-export default class Demo extends React.Component {
+class Demo extends React.Component {
   state = {
-    tabPosition: 'top',
+    theme: 'red',
   }
 
-  changeTabPosition = (tabPosition) => {
-    this.setState({ tabPosition });
+  handleChangeTheme = (theme) => {
+    console.log(this.props)
+    this.setState({
+      theme: theme
+    }, () => {
+      if (this.props.events && typeof this.props.events.changeTheme === 'function') {
+        this.props.events.changeTheme(theme)
+      }
+    })
+
   }
 
   render() {
     return (
       <div>
         <div style={{ marginBottom: 16 }}>
-          Tab position：
           <Select
-            value={this.state.tabPosition}
-            onChange={this.changeTabPosition}
+            value={this.state.theme}
+            onChange={this.handleChangeTheme}
             dropdownMatchSelectWidth={false}
           >
-            <Option value='top'>top</Option>
-            <Option value='bottom'>bottom</Option>
-            <Option value='left'>left</Option>
-            <Option value='right'>right</Option>
+            <Option value='red'>红</Option>
+            <Option value='yellow'>黄</Option>
+            <Option value='blue'>蓝</Option>
           </Select>
         </div>
-        <Tabs tabPosition={this.state.tabPosition}>
-          <TabPane tab='Tab 1' key='1'>Content of Tab 1</TabPane>
-          <TabPane tab='Tab 2' key='2'>Content of Tab 2</TabPane>
-          <TabPane tab='Tab 3' key='3'>Content of Tab 3</TabPane>
-        </Tabs>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    theme: state.themeInfo.theme
+  }
+};
+//传入dispatch，返回使用bindActionCreators()绑定的action方法
+const mapDispatchToProps = (dispatch) => ({
+  events: bindActionCreators(Object.assign({}, { changeTheme }), dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Demo);
+

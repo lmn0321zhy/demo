@@ -6,16 +6,16 @@ const hostApi = {
         prefix: '/api',
         suffix: ''
     },
-    develop: {
-        host: '',
-        prefix: '/api',
-        suffix: ''
-    },
     // develop: {
     //     host: '',
-    //     prefix: '/mock',
-    //     suffix: '.json'
-    // }
+    //     prefix: '/api',
+    //     suffix: ''
+    // },
+    develop: {
+        host: '',
+        prefix: '/mock',
+        suffix: '.json'
+    }
 }
 
 const urls = {}

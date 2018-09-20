@@ -23,6 +23,7 @@ class NormalLoginForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const userInfo = this.props.userInfo;
+    console.log(userInfo)
     const layout = <div className={styles.login}>
       <div className={styles.loginForm} >
         <div className={styles.loginLogo}>

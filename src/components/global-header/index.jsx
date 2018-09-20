@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Menu, Icon, Layout, Badge, Button } from 'antd';
 import { connect } from 'react-redux';
 import { logout } from 'action/login'
+import { changeTheme } from 'action/theme'
 import { bindActionCreators } from 'redux';
 import styles from './index.less';
 const { Header } = Layout;
@@ -32,9 +33,9 @@ class GlobalHeader extends PureComponent {
         }
     }
     render() {
-        const { userInfo } = this.props;
+        const { userInfo, theme } = this.props;
         return (
-            <Header className={styles.globalHeader} >
+            <Header className={styles.globalHeader} style={{ background: theme }}>
                 <span style={{ paddingLeft: '15px', color: '#ff0000', fontSize: '25px' }}>管理系统</span>
                 <div className={styles.globalHeaderUser}>
                     <Menu
@@ -67,13 +68,15 @@ class GlobalHeader extends PureComponent {
 }
 // 传入所有state，返回指定的state数据，放入到当前组件props中
 const mapStateToProps = (state) => {
+    console.log('state', state)
     return {
         userInfo: state.loginInfo.userInfo,
-        loginerror: state.loginInfo.loginerror
+        loginerror: state.loginInfo.loginerror,
+        theme: state.themeInfo.theme
     }
 };
 //传入dispatch，返回使用bindActionCreators()绑定的action方法
 const mapDispatchToProps = (dispatch) => ({
-    events: bindActionCreators(Object.assign({}, { logout }), dispatch)
+    events: bindActionCreators(Object.assign({}, { changeTheme, logout }), dispatch)
 })
 export default connect(mapStateToProps, mapDispatchToProps)(GlobalHeader);

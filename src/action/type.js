@@ -2,3 +2,4 @@
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_SUCCSSS = 'LOGOUT_SUCCSSS';
+export const CHANGE_THEME = 'CHANGE_THEME';

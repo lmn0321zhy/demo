@@ -52,7 +52,7 @@ const enhances = [applyMiddleware(...middlewares)]
 
 const configureStore = (initialState) => {
     // let store = createStore(reducers, initialState, compose(...enhances, devToolsEnhancer({ realtime: true, port: 8080 })));
-    const store = createStore(reducers, initialState, compose(...enhances))
+    const store = createStore(rootReducers, initialState, compose(...enhances))
     return store
 }
 const store = configureStore()
