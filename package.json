@@ -23,6 +23,7 @@
     "echarts-for-react": "^2.0.13",
     "moment": "^2.22.2",
     "react": "^15.6.1",
+    "react-addons-perf": "^15.4.2",
     "react-document-title": "^2.0.3",
     "react-dom": "^15.6.1",
     "react-hot-loader": "^4.3.4",

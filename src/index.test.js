@@ -11,6 +11,7 @@ import reconciler from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import storage from 'redux-persist/es/storage'
 import devToolsEnhancer from 'remote-redux-devtools';
 import rootReducers from './reducer'
+import Perf from 'react-addons-perf'
 
 const logger = store => next => action => {
     if (typeof action === 'function') console.log('dispatching a function');
@@ -91,3 +92,6 @@ if (module.hot) {
         render(App);
     })
 }
+
+console.log(1111111111111111111111111111)
+window.Perf = Perf
